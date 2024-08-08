@@ -8,6 +8,16 @@
 //   anagrams('RAIL! SAFETY!', 'fairy tales') --> True
 //   anagrams('Hi there', 'Bye there') --> False
 
-function anagrams(stringA, stringB) {}
+const makeAlphaString = (strng) =>
+  strng
+    .toLowerCase()
+    .replace(/[^a-z]+/gi, "")
+    .split("")
+    .sort()
+    .join("");
+
+function anagrams(stringA, stringB) {
+  return makeAlphaString(stringA) === makeAlphaString(stringB);
+}
 
 module.exports = anagrams;
