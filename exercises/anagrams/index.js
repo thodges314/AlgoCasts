@@ -8,16 +8,38 @@
 //   anagrams('RAIL! SAFETY!', 'fairy tales') --> True
 //   anagrams('Hi there', 'Bye there') --> False
 
-const makeAlphaString = (strng) =>
+const buildCharObject = (strng) => {
+  const charObject = {};
   strng
     .toLowerCase()
     .replace(/[^a-z]+/gi, "")
     .split("")
-    .sort()
-    .join("");
+    .forEach((char) => (charObject[char] = charObject[char] + 1 || 1));
+  return charObject;
+};
 
 function anagrams(stringA, stringB) {
-  return makeAlphaString(stringA) === makeAlphaString(stringB);
+  const aCharMap = buildCharObject(stringA);
+  const bCharMap = buildCharObject(stringB);
+  if (Object.keys(aCharMap).length !== Object.keys(bCharMap).length)
+    return false;
+  for (let char in aCharMap) {
+    if (aCharMap[char] !== bCharMap[char]) return false;
+  }
+  return true;
 }
 
 module.exports = anagrams;
+
+// MY SOLUTION BELOW
+// const makeAlphaString = (strng) =>
+//   strng
+//     .toLowerCase()
+//     .replace(/[^a-z]+/gi, "")
+//     .split("")
+//     .sort()
+//     .join("");
+
+// function anagrams(stringA, stringB) {
+//   return makeAlphaString(stringA) === makeAlphaString(stringB);
+// }
